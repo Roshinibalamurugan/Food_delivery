@@ -1,0 +1,130 @@
+
+
+.checkout-container {
+  padding: 30px;
+  background-color: #f4f6f9;
+  min-height: 100vh;
+  font-family: 'Roboto', sans-serif;
+}
+
+.checkout-heading {
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 25px;
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+.order-summary, .delivery-details, .payment-options, .delivery-time {
+  background: #fff;
+  border-radius: 12px;
+  padding: 25px;
+  margin-bottom: 20px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  font-size: 24px;
+  margin-bottom: 18px;
+  color: #2c3e50;
+  font-weight: 500;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin-bottom: 15px;
+}
+
+ul li {
+  font-size: 18px;
+  margin-bottom: 8px;
+  color: #7f8c8d;
+}
+
+textarea, input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 18px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border 0.3s ease;
+}
+
+textarea {
+  height: 90px;
+}
+
+textarea:focus, input:focus {
+  border-color: #27ae60;
+  outline: none;
+}
+
+/* Payment Options */
+.payment-options label {
+  font-size: 18px;
+  color: #2c3e50;
+}
+
+.payment-methods {
+  display: flex;
+  justify-content: space-between; /* Distribute evenly */
+  gap: 20px;
+  align-items: center;
+}
+
+.payment-options input[type="radio"] {
+  margin-right: 8px;
+}
+
+.payment-options .credit-card-details {
+  margin-top: 15px;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.payment-options input[type="text"] {
+  width: calc(33.33% - 12px); /* To make inputs fit in a row */
+  padding: 12px;
+  margin-right: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.payment-options input[type="text"]:focus {
+  border-color: #27ae60;
+  outline: none;
+}
+
+
+.delivery-time p {
+  font-size: 18px;
+  color: #7f8c8d;
+}
+
+.place-order-button {
+  display: block;
+  width: 100%;
+  padding: 18px;
+  background-color: #27ae60;
+  color: #fff;
+  font-size: 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.place-order-button:hover {
+  background-color: #219150;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.place-order-button:active {
+  background-color: #1e7b44;
+}
