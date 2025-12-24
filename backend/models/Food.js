@@ -1,11 +1,22 @@
-import mongoose from "mongoose";
+let foods = [];
 
-const foodSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  description: { type: String, required: true },
-  price: { type: Number, required: true },
-  imageUrl: { type: String, required: true },
-});
+class Food {
+  constructor(data) {
+    this._id = Date.now().toString() + Math.random().toString(36).substr(2, 9); // Simple ID generation
+    this.name = data.name;
+    this.description = data.description;
+    this.price = data.price;
+    this.imageUrl = data.imageUrl;
+  }
 
-const Food = mongoose.model("Food", foodSchema);
+  save() {
+    foods.push(this);
+    return Promise.resolve(this);
+  }
+
+  static find(query = {}) {
+    return Promise.resolve(foods);
+  }
+}
+
 export default Food;

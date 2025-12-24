@@ -56,7 +56,7 @@ const Checkout = ({ cartItems }) => {
     try {
       const response = await axios.post("http://localhost:5000/api/orders", orderData);
       setOrderSuccess(true);
-      setOrderDetails(response.data.order); 
+      setOrderDetails(response.data.order);
     } catch (error) {
       console.error("Error placing order:", error);
       setErrorMessage("There was an error placing your order. Please try again.");

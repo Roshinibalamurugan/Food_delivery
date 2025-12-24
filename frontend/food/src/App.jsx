@@ -4,6 +4,7 @@ import Home from './webpages/Home';
 import Menu from './webpages/Menu';
 import Cart from './webpages/Cart';
 import Checkout from './webpages/Checkout';
+
 import AuthModal from './components/AuthModal';
 import Navbar from './Navbar';
 

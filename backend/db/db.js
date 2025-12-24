@@ -1,15 +1,7 @@
-import mongoose from "mongoose";
-
-async function connectDB() {
-    try {
-        await mongoose.connect("mongodb://127.0.0.1:27017/food_delivery");
-        console.log("DB connected");
-    } catch (e) {
-        console.error("Error connecting to DB: ", e.message);
-    }
+// MongoDB removed, using in-memory storage
+export default function connectDB() {
+    console.log("Using in-memory storage, no DB connection needed");
 }
-
-export default connectDB;  
 
 
 

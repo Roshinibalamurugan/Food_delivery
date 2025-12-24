@@ -1,6 +1,5 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from pymongo import MongoClient
 import requests
 import os
 from dotenv import load_dotenv
@@ -10,12 +9,12 @@ load_dotenv()
 app = Flask(__name__)
 CORS(app)
 
-# Connect to MongoDB
-client = MongoClient("mongodb://127.0.0.1:27017/food_delivery")
-db = client.food_delivery
+# In-memory storage for orders and foods
+orders = []
+foods = []
 
 # Node.js backend URL
-NODE_BACKEND_URL = "http://localhost:5000"
+NODE_BACKEND_URL = "http://localhost:5002"
 
 @app.route('/api/analytics/users', methods=['GET'])
 def get_user_analytics():
@@ -56,8 +55,7 @@ def get_order_analytics():
 def get_food_analytics():
     """Get food analytics"""
     try:
-        # Get foods from database
-        foods = list(db.foods.find({}, {'_id': 0}))
+        # Get foods from in-memory storage
         analytics = {
             "total_foods": len(foods),
             "categories": len(set(f.get('category', 'Uncategorized') for f in foods)),
@@ -83,4 +81,4 @@ def sync_data():
         return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5001)
+    app.run(debug=True, port=5002)

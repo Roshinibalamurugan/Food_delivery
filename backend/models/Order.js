@@ -1,24 +1,51 @@
-import mongoose from "mongoose";
+let orders = [];
 
-const orderSchema = new mongoose.Schema({
-  deliveryAddress: { type: String, required: true },
-  contactNumber: { type: String, required: true },
-  paymentMethod: { type: String, required: true }, 
-  cartItems: [
-    {
-      name: { type: String, required: true },
-      quantity: { type: Number, required: true },
-      price: { type: Number, required: true },
-    },
-  ],
-  subTotal: { type: Number, required: true },
-  tax: { type: Number, required: true },
-  deliveryFee: { type: Number, required: true },
-  total: { type: Number, required: true },
-  orderDate: { type: Date, default: Date.now }, 
-  status: { type: String, default: "Pending" }, 
-});
+class Order {
+  constructor(data) {
+    this._id = Date.now().toString() + Math.random().toString(36).substr(2, 9); // Simple ID generation
+    this.deliveryAddress = data.deliveryAddress;
+    this.contactNumber = data.contactNumber;
+    this.paymentMethod = data.paymentMethod;
+    this.cartItems = data.cartItems || [];
+    this.subTotal = data.subTotal;
+    this.tax = data.tax;
+    this.deliveryFee = data.deliveryFee;
+    this.total = data.total;
+    this.orderDate = data.orderDate || new Date();
+    this.status = data.status || "Pending";
+  }
 
-const Order = mongoose.model("Order", orderSchema);
+  save() {
+    orders.push(this);
+    return Promise.resolve(this);
+  }
+
+  static find(query = {}) {
+    let result = orders;
+    if (query.userId) {
+      result = orders.filter(order => order.userId === query.userId);
+    }
+    return Promise.resolve(result);
+  }
+
+  static findOne(query) {
+    return Promise.resolve(orders.find(order => {
+      for (let key in query) {
+        if (order[key] !== query[key]) return false;
+      }
+      return true;
+    }));
+  }
+
+  static findByIdAndUpdate(id, update) {
+    const order = orders.find(o => o._id === id);
+    if (order) {
+      Object.assign(order, update);
+      return Promise.resolve(order);
+    }
+    return Promise.resolve(null);
+  }
+}
+
 export default Order;
 

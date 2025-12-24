@@ -1,6 +1,23 @@
 import express from "express";
+import jwt from "jsonwebtoken";
 import Order from "../models/order.js";
 const router = express.Router();
+
+// Middleware to authenticate user
+const authenticateUser = (req, res, next) => {
+  const token = req.headers.authorization?.split(' ')[1];
+  if (!token) {
+    return res.status(401).json({ error: 'Access denied. No token provided.' });
+  }
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET || "secretkey");
+    req.userId = decoded.userId;
+    next();
+  } catch (error) {
+    res.status(400).json({ error: 'Invalid token.' });
+  }
+};
 
 
 router.post("/", async (req, res) => {
@@ -27,7 +44,7 @@ router.post("/", async (req, res) => {
       total,
     });
 
-    await newOrder.save(); 
+    await newOrder.save();
 
     res.status(201).json({ message: "Order placed successfully!", order: newOrder });
   } catch (error) {
